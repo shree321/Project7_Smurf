@@ -115,9 +115,22 @@ public class Main extends Application {
         actiontarget.setTranslateY(300);
 
         final Label password_msg = new Label("");
+        final Label username_msg = new Label("");
+
         login.setOnAction(new EventHandler<ActionEvent>() {	//event
             @Override
             public void handle(ActionEvent event){
+                // get and store the username of the client into the History ArrayList
+                if(user_input.getText()!="") {
+                    // store the username with loggedin field as true
+
+                }
+                else {
+                    username_msg.setText("Please enter a username to proceed to the auction");
+                    username_msg.setTextFill(Color.rgb(210, 39, 30));
+                }
+
+                //determine if the password is valid
                 if (!password_input.getText().equals("422C")) {
                     password_msg.setText("Your password is incorrect!");
                     password_msg.setTextFill(Color.rgb(210, 39, 30));
@@ -131,6 +144,7 @@ public class Main extends Application {
                 password_msg.setTranslateY(100);
                 gp1.getChildren().addAll(password_msg);
 
+                // process login
                 actiontarget.setFill(Color.DARKBLUE);
                 actiontarget.setText("Login button pressed");
 

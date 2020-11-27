@@ -1,4 +1,11 @@
 package Client;
+
+import sun.net.www.http.HttpCaptureInputStream;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 2 Maps
     Map1: contains the Item, the updated bid price, status for any item
@@ -17,5 +24,8 @@ ArrayList of all of the customers and whether they are logged in in or out
 public class History {
     String customer_name;
     boolean login_or_off;
+    public History() {
+    }
+    Map<String, Boolean> user_map = new HashMap<String, Boolean>();
+    Map<String, Integer, Boolean> item_history = new HashMap<String, Integer, Boolean>();
 }
-

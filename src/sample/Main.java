@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -28,6 +29,7 @@ public class Main extends Application {
         Tab tab1 = new Tab("Login Page");
         GridPane gp1 = new GridPane();
         gp1.setStyle("-fx-background-color: lightblue");
+        gp1.setPadding(new Insets(25,25,25,25));
 
         Text title = new Text();
         title.setText("Smurf Village Market Auction");
@@ -47,7 +49,7 @@ public class Main extends Application {
         username.setTranslateY(50);
         gp1.getChildren().add(username);
 
-//            Second Stage creates a new window for the input text // TODO: ADD TO TAB1 INSTEAD NEXT TO USERNAME
+//      Second Stage creates a new window for the input text // TODO: ADD TO TAB1 INSTEAD NEXT TO USERNAME
         TextField user_input = new TextField();
         HBox user_input_box = new HBox(user_input);
         user_input_box.setTranslateX(100);
@@ -61,7 +63,8 @@ public class Main extends Application {
         password.setTranslateY(75);
         gp1.getChildren().add(password);
 
-        TextField password_input = new TextField();
+        PasswordField password_input = new PasswordField();
+        password_input.setPromptText("Your password");
         HBox password_input_box = new HBox(password_input);
         password_input_box.setTranslateX(100);
         password_input_box.setTranslateY(75);
@@ -73,17 +76,19 @@ public class Main extends Application {
         or.setTranslateY(125);
         gp1.getChildren().add(or);
 
-        Text guest = new Text();
-        guest.setText("Guest Username:");
-        guest.setTranslateX(25);
-        guest.setTranslateY(150);
+        // Guest Button
+        Button guest = new Button("Guest");
         gp1.getChildren().add(guest);
+        guest.setTranslateX(215);
+        guest.setTranslateY(125);
+        guest.setOnAction(new EventHandler<ActionEvent>() {	//event
 
-        TextField guest_input = new TextField();
-        HBox guest_input_box = new HBox(guest_input);
-        guest_input_box.setTranslateX(125);
-        guest_input_box.setTranslateY(150);
-        gp1.getChildren().add(guest_input_box);
+            @Override
+            public void handle(ActionEvent event){
+
+            }
+
+        });
 
         Text market = new Text();
         market.setText("Have fun bidding on the Market fruits & produce:");
@@ -103,13 +108,33 @@ public class Main extends Application {
         gp1.getChildren().add(login);
         login.setTranslateX(100);
         login.setTranslateY(300);
-        login.setOnAction(new EventHandler<ActionEvent>() {	//event
 
+        Text actiontarget = new Text();
+        gp1.getChildren().add(actiontarget);
+        actiontarget.setTranslateX(160);
+        actiontarget.setTranslateY(300);
+
+        final Label password_msg = new Label("");
+        login.setOnAction(new EventHandler<ActionEvent>() {	//event
             @Override
             public void handle(ActionEvent event){
+                if (!password_input.getText().equals("422C")) {
+                    password_msg.setText("Your password is incorrect!");
+                    password_msg.setTextFill(Color.rgb(210, 39, 30));
+                } else {
+                    password_msg.setText("Your password has been confirmed");
+                    password_msg.setTextFill(Color.rgb(21, 117, 84));
+                }
+                password_input.clear();
 
-            }
+                password_msg.setTranslateX(100);
+                password_msg.setTranslateY(100);
+                gp1.getChildren().addAll(password_msg);
 
+                actiontarget.setFill(Color.DARKBLUE);
+                actiontarget.setText("Login button pressed");
+
+        }
         });
 
         tab1.setContent(gp1);

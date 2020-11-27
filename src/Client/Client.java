@@ -12,7 +12,7 @@ public class Client {
     private static String host = "127.0.0.1";
     private BufferedReader fromServer;
     private PrintWriter toServer;
-    private Scanner consoleInput = new Scanner(System.in);
+
 
     public static void main(String[] args) {
         try {
@@ -28,7 +28,9 @@ public class Client {
         System.out.println("Connecting to... " + socket);
         fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         toServer = new PrintWriter(socket.getOutputStream());
+    }
 
+    protected void startUpdateProcessing() {
         Thread readerThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -44,26 +46,13 @@ public class Client {
             }
         });
 
-        Thread writerThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    String input = consoleInput.nextLine();
-                    String[] variables = input.split(",");
-                    Message request = new Message(variables[0], variables[1], Integer.valueOf(variables[2]));
-                    GsonBuilder builder = new GsonBuilder();
-                    Gson gson = builder.create();
-                    sendToServer(gson.toJson(request));
-                }
-            }
-        });
-
         readerThread.start();
-        writerThread.start();
     }
 
     protected void processRequest(String input) {
-        return;
+        // change gson to History object
+
+        // process request
     }
 
     protected void sendToServer(String string) {

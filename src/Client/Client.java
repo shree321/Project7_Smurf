@@ -1,11 +1,9 @@
 package Client;
 
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +14,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,7 +37,7 @@ public class Client extends Application {
         launch(args);
     }
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
 
         try { new Client().setUpNetworking(); }
         catch(Exception e) { e.printStackTrace(); }
@@ -114,6 +114,16 @@ public class Client extends Application {
         market.setTranslateY(225);
         gp1.getChildren().add(market);
 
+        // add a split pane to have a background and icons
+//        SplitPane splitPane = new SplitPane();
+//        VBox leftControl  = new VBox();
+//        VBox rightControl = new VBox(new Label("Choose a Smurf Customer Icon:"));
+//        splitPane.getItems().addAll(leftControl, rightControl);
+//        gp1.getChildren().add(splitPane);
+
+
+        //        choose_icon.setTranslateX(400);
+//        choose_icon.setTranslateY(50);
         // Choose a Smurf icon for the customer
         Text choose_icon = new Text();
         choose_icon.setText("Choose a Smurf Customer Icon:");
@@ -131,6 +141,14 @@ public class Client extends Application {
         gp1.getChildren().add(actiontarget);
         actiontarget.setTranslateX(160);
         actiontarget.setTranslateY(300);
+
+        //Image Background
+//        FileInputStream input = new FileInputStream("\"Users\\shree\\Downloads\\smurfvillage.JPEG\"");
+//        Image image = new Image(input);
+//        ImageView imageView = new ImageView(image);
+//
+//        HBox hbox = new HBox(imageView);
+//        gp1.getChildren().add(hbox);
 
         final Label password_msg = new Label("");
         final Label username_msg = new Label("");
@@ -195,7 +213,7 @@ public class Client extends Application {
         gp4.setPadding(new Insets(25,25,25,25));
 
         Text title4 = new Text();
-        title4.setText("Displays any information on the items auctioned off today");
+        title4.setText("Displays updated information on the items auctioned off today");
         title4.setTranslateX(25);
         title4.setTranslateY(0);
         gp4.getChildren().add(title4);
@@ -206,6 +224,7 @@ public class Client extends Application {
         // TODO: add the item_names to the drop down menu
             for(Item_Info i: items_auction_arr) {
                 item_menu.getItems().add(i.item_name);
+                System.out.println(i.item_name);
             }
 
         HBox item_menu_box = new HBox(item_menu);
@@ -221,23 +240,14 @@ public class Client extends Application {
         Tab tab5 = new Tab("Auction Home Page" , new Label("Place your bid here"));
         // tab5.setContent((new Rectangle(800,400, Color.SKYBLUE)));
 
-
-        tabPane.getTabs().add(tab1);
-        tabPane.getTabs().add(tab2);
-        tabPane.getTabs().add(tab3);
-        tabPane.getTabs().add(tab4);
-        tabPane.getTabs().add(tab5);
-
+        tabPane.getTabs().add(tab1); tabPane.getTabs().add(tab2); tabPane.getTabs().add(tab3); tabPane.getTabs().add(tab4); tabPane.getTabs().add(tab5);
 
         VBox vBox = new VBox(tabPane);
-
-
         vBox.setPrefWidth(800);
         vBox.setPrefHeight(400);
         Scene scene = new Scene(vBox);
 
         primaryStage.setScene(scene);
-
         primaryStage.setTitle("Smurf Village Market Auction");
         primaryStage.show();
 
@@ -258,6 +268,8 @@ public class Client extends Application {
         Type l = new TypeToken<ArrayList<Item_Info>>(){}.getType();
         Gson gson = new Gson();
         items_auction_arr = gson.fromJson(item_list, l);
+
+        System.out.println("Item INIT: In Client:" + items_auction_arr);
 
 
     }

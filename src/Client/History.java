@@ -27,5 +27,5 @@ public class History {
     public History() {
     }
     Map<String, Boolean> user_map = new HashMap<String, Boolean>();
-    Map<String, Integer, Boolean> item_history = new HashMap<String, Integer, Boolean>();
+    //Map<String, Integer, Boolean> item_history = new HashMap<String, Integer, Boolean>();
 }

@@ -24,6 +24,7 @@ public class ClientHandler implements Observer, Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     protected void sendToClient(String string) {
